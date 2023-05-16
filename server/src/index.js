@@ -1,6 +1,6 @@
 // Importando módulos
 const express = require('express');
-const routes = require('./routes/routes.js');
+const router = require('./routes/index.js');
 const cors = require('cors');
 
 // Importando conexão com banco??
@@ -11,16 +11,17 @@ const app = express();
 
 // Indicando
 app.use(express.json());
-app.use(routes);
-// app.use(cors);
-app.use(cors());
+app.use(router);
+app.use(cors);
+// app.use(cors());
+
 // 
-app.post('/login', cors(), (req, res) => {
-    console.log('LOGIN route')
+// app.post('/login', cors(), (req, res) => {
+//     console.log('LOGIN route')
 
     
-    res.send('teste ok');
-});
+//     res.send('teste ok');
+// });
 
 
 

@@ -7,8 +7,10 @@ function Login() {
     /**
      * states do React utilizados para armazenar e setar variáveis em um component
      */
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [setEmail] = useState('');
+    // const [email, setEmail] = useState('');
+    const [setPassword] = useState('');
+    // const [password, setPassword] = useState('');
 
 
     /**
@@ -38,8 +40,9 @@ function Login() {
         password: "teste123"
       }
 
-      const testing = await api.post("http://localhost:3001/login", objTest);
-
+      console.log('antes de chamar o back');
+      const testing = await api.post("/login", objTest);
+      console.log('após chamar o back');
       console.log({testing})
     };
   

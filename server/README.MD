@@ -1,26 +1,27 @@
 # BACKEND
-# Iniciando o projeto e instalando dependências
+
+### Importante!
+Os comandos aqui listados devem ser executados em um terminal apontado para a pasta '/server'
+
+# Configurando o projeto e instalando dependências
 
 ## 1. npm install
-Para iniciar o projeto na pasta desejada
+Instala o npm que é uma ferramenta do node para gerenciar instalações e scripts no projeto.
 
-## 2. npm init
-Criar o arquivo 'package.json' , nas opções solicitadas basta seguir dando enter nas opções padrão.
-
-## 3. npm install express
+## 2. npm install express
 Instalando dependência 'express' - para lidar melhor com requisições utilizando (req e res).
 
-## 4. npm install nodemon
+## 3. npm install nodemon
 Instalando dependência 'nodemon' - responsável por atualizar automaticamente as alterações no servidor.
 
-## 5. npm install cors
-Instalando dependência 'cors' - responsável por gerenciar requisições de origens diferentes (no nosso caso do front para o back).
+## 4. npm install cors
+Instalando dependência 'cors' - responsável por gerenciar requisições de origens iguais (no nosso caso do front para o back).
 
-## 6. npm install --save mysql2
+## 5. npm install --save mysql2
 Dependência do mysql para conectar o node com o banco de dados.
 
 
-# Comandos utilizados
+# Script - Comandos utilizados
 
 ## npm run dev
-Serve para iniciar o sevidor (rodar o backend para que esteja pronto para receber as requisições).
+Serve para rodar o backend para que esteja pronto para receber as requisições (o terminal deve permanecer aberto com o comando rodando).

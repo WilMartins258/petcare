@@ -42,6 +42,8 @@ function Login() {
           password: input_password.value
         }
 
+        console.log({user_login_info});
+
         console.log('antes de chamar o back \n');
 
         const login = await api.post("/login", user_login_info);
@@ -54,6 +56,7 @@ function Login() {
           console.log('E-mail ou senha incorretos');
         }
       }
+      exibeResposta();
     };
   
     return (

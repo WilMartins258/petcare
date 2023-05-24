@@ -11,6 +11,12 @@ Instala o npm que é uma ferramenta do node para gerenciar instalações e scrip
 
 ## 2. npm install axios
 Instalando a dependência "axios" utilizada para fazer as requisições no front.
+## 3. npm install styled-components
+Instalando a dependência "styled-components" utilizada para estilizar os componentes React.
+## 4. npm install react-imask
+Instalando a dependência "react-imask" utilizada para criar máscaras para inputs em React.
+
+
 
 -------------------------------
 # Script - Comandos utilizados

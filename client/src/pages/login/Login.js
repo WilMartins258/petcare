@@ -30,8 +30,6 @@ function Login() {
     const handleLogin = async (values) => {
       values.preventDefault();
 
-      exibeResposta();
-
       if (!input_email || input_email.value.length === 0){
         setResposta('Campo email vazio');
       } else if (input_password.value.length === 0){
@@ -69,7 +67,6 @@ function Login() {
                 name='input_email' 
                 id='input_email' 
                 placeholder='Email' 
-                required
                 onChange={ocultaResposta}
                 />
               <input 
@@ -77,7 +74,6 @@ function Login() {
                 name='input_password'
                 id='input_password' 
                 placeholder='Password' 
-                required
                 onChange={ocultaResposta}
                 />
                 <p id="resposta" 

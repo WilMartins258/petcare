@@ -23,4 +23,14 @@ router.use(
     require("./register")
 );
 
+router.use(
+    "/home-logged", 
+    require("./home-logged")
+);
+
+router.use(
+    "/home", 
+    require("./home")
+);
+
 module.exports = router;

@@ -16,14 +16,14 @@ function Register() {
   const [resposta, setResposta] = useState('');
 
   const ocultaResposta = () => {
-    console.log('ocultaResposta')
+    // console.log('ocultaResposta')
     if (p_resposta && p_resposta.style.display !== 'none'){
       p_resposta.style.display = "none";
     }
   }
 
   const exibeResposta = () => {
-    console.log('exibeResposta')
+    // console.log('exibeResposta')
     if (p_resposta && p_resposta.style.display === 'none'){
       p_resposta.style.display = "flex";
     }
@@ -33,19 +33,20 @@ function Register() {
      * Função executada ao clicar no botão de cadastrar
      */
     const handleRegister = async (values) => {
+      values.preventDefault();
       console.log('handleRegister')
 
       if (!input_email || input_email.value.length === 0){
         setResposta('Campo email vazio');
-      } else if (input_name.value.length === 0){
+      } else if (!input_name || input_name.value.length === 0){
         setResposta('Campo nome vazio');
-      } else if (input_last_name.value.length === 0){
+      } else if (!input_last_name || input_last_name.value.length === 0){
         setResposta('Campo sobrenome vazio');
-      } else if (input_phone.value.length === 0){
+      } else if (!input_phone || input_phone.value.length === 0){
         setResposta('Campo celular vazio');
-      } else if (input_password.value.length === 0){
+      } else if (!input_password || input_password.value.length === 0){
         setResposta('Campo senha vazio');
-      } else if (input_password_confirm.value.length === 0){
+      } else if (!input_password_confirm || input_password_confirm.value.length === 0){
         setResposta('Campo confirmação de senha vazio');
       } else if (input_password_confirm.value !== input_password.value){
         setResposta('As senhas não coincidem');
@@ -60,17 +61,21 @@ function Register() {
         }
         
         console.log({user_register_info});
-
+        
         const register = await api.post("/register", user_register_info);
+        
+        console.log({register});
 
         if (register.status === 200){
-          console.log('');
-          console.log('');
-
+          console.log('deu certo?');
+          // console.log('');
+        } else {
+          console.log('Deu errado?')
         }
 
         // console.log({register});
-        console.log('\n\n\n\n');
+        // console.log('\n\n\n\n');
+        setResposta('');
       }
       exibeResposta();
     };
@@ -86,7 +91,6 @@ function Register() {
                 id='input_email'
                 placeholder='Email'
                 onChange={ocultaResposta}
-                required
               />
               <input 
                 type='text'
@@ -94,7 +98,6 @@ function Register() {
                 id='input_name'
                 placeholder='Nome'
                 onChange={ocultaResposta}
-                required
               />
               <input 
                 type='text'
@@ -102,14 +105,12 @@ function Register() {
                 id='input_last_name'
                 placeholder='Sobrenome'
                 onChange={ocultaResposta}
-                required
               />
               <IMaskInput
                 id='input_phone'
                 mask="(00)00000-0000"
                 onChange={ocultaResposta}
                 placeholder="Celular"
-                required
               />
               <input 
                 type='password'
@@ -117,7 +118,6 @@ function Register() {
                 id='input_password'
                 onChange={ocultaResposta}
                 placeholder='Senha'
-                required
               />
               <input 
                 type='password'
@@ -125,7 +125,6 @@ function Register() {
                 id='input_password_confirm'
                 onChange={ocultaResposta}
                 placeholder='Confirme sua senha'
-                required
               />
               <p id="resposta"
                 style={{

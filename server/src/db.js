@@ -13,3 +13,13 @@ const connection = mysql.createPool({
 });
 
 module.exports = connection;
+
+// const query = (sql, callBack) => {
+//     return connection.query(sql, callBack);
+// };
+
+
+// module.exports = {
+//     connection,
+//     query
+// };

@@ -7,6 +7,22 @@
   margin-top: 5%;
 }
 
+a {
+  font-size: 1.1rem;
+}
+
+#forgot_password {
+  text-align: center;
+  align-items: center;
+  align-content: center;
+}
+
+#resposta-div {
+  text-align: center;
+  align-items: center;
+  align-content: center;
+}
+
 body {
   background-color: #9f9da7;
   font-size: 1.6rem;

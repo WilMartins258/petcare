@@ -45,17 +45,12 @@ router.post('/', async (req, res) => {
         // console.log('login_info.password:', login_info.password);
     
         if (loginResult[0].senha === login_info.password){
-            if (loginResult[0].sexo === 'M') {
-                return res.status(200).send({
-                    login: true,
-                    msg: `Bem-vindo, ${loginResult[0].nome}!`
-                });
-            } else {
-                return res.status(200).send({
-                    login: true,
-                    msg: `Bem-vinda, ${loginResult[0].nome}!`
-                });
-            }
+            
+            return res.status(200).send({
+                login: true,
+                msg: `Bem-vindo(a), ${loginResult[0].nome}!`
+            });
+            
         } else {
             return res.status(200).send({
                 login: false,

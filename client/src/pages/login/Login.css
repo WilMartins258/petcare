@@ -1,3 +1,10 @@
+#forgot_password {
+  text-align: center;
+  align-items: center;
+  align-content: center;
+  padding-bottom: 30px;
+}
+
 .div-form {
   background-color: white;
   max-width: 50%;
@@ -52,6 +59,7 @@ a:active:hover {
 
 .login-form {
   padding: 0 60px;
+  /* padding-bottom: 30px; */
 }
 
 input {

@@ -88,6 +88,11 @@ function Login() {
               <button 
                 className='btn-login'
                 onClick={(e) => handleLogin(e)} >Login</button>
+              <p id='forgot_password'>
+                <a href="#">
+                  Esqueci minha senha
+                </a>
+              </p>
             </form>
           </header>
         </div>

@@ -7,89 +7,132 @@ router.get('/', (req, res) => {
     res.status(200).send('GET - Dados da página de registro.');
 });
 
-const selectCustomers = async () => {
+/**
+ * Procura pelo email enviado pelo usuário no banco de dados para garantir que não é um email já cadastrado anteriormente
+ * @param {email enviado pelo front} user_email 
+ * @returns 
+ */
+const findEmail = async (user_email) => {
     const connection = await db;
-    const [rows] = await connection.query('SELECT * FROM telefone;');
+
+    const find_email_query = "SELECT email from usuario WHERE email = ?;";
+    const [rows] = await connection.query(find_email_query, user_email);
+
     return rows;
 }
+
+/**
+ * Insere os dados de celular no banco de dados
+ * @param {código da área, número do celular} phone_info 
+ * @returns Inserção do telefone no banco de dados
+ */
+const insertNewPhone = async (phone_info) => {
+    const connection = await db;
+
+    const phone_insert_query = "INSERT INTO telefone VALUES (null, '+55', ?, ?);";
+    const [rows] = await connection.query(phone_insert_query, phone_info);
+
+    return rows;
+}
+
+/**
+ * Recupera o último ID inserido na tabela telefone
+ * @returns
+ */
+const lastPhoneId = async () => {
+    const connection = await db;
+
+    const phone_id_query = "SELECT id FROM telefone ORDER BY id DESC LIMIT 1;";
+    const [rows] = await connection.query(phone_id_query);
+
+    return rows;
+}
+
+/**
+ * Insere os dados do usuário no banco de dados
+ * @param {Todos os dados do usuário} user_info 
+ * @returns Inserção do usuário no banco de dados
+ */
+const insertNewUser = async (user_info) => {
+    const connection = await db;
+
+    console.log('DENTRO DA INSERÇÃO DE USUÁRIOS');
+
+    // (null, null, null, last_phone_id[0].id, null, NOME, SOBRENOME, CPF, EMAIL, SENHA, SEXO, FOTO, DATA_NASC, ADMIN);
+    
+    const user_insert_query = "INSERT INTO usuario VALUES (null, null, null, ?, null, ?, ?, null, ?, ?, null, null, null, 0);";
+    const [rows] = await connection.query(user_insert_query, user_info);
+
+    return rows;
+}
+
 
 router.post('/', async (req, res) => {
     console.log('POST /register');
 
-    
-
-    const test = await selectCustomers();
-
     console.log('OLHA O TESTE:')
-    console.log({test})
-
-    // console.log({body: req.body});
-
-    // const full_phone = req.body.phone;
-    // const areaCode = full_phone.substring(1, 3);
-    // let phone = full_phone.substring(4);
-    // phone = phone.replace('-', '');
-
-    // console.log('areaCode::: ', areaCode);
-    // console.log('phone::: ', phone);
-
-    // const phone_insert_query = "INSERT INTO telefone VALUES (null, '+55', ?, ?)";
-    // const phone_info = [areaCode, phone];
-
-    // var inserted_phone_id;
-
     
+    const user_info = req.body;
+    console.log({user_info});
 
-    // // db.query(phone_insert_query, phone_info,
-    // //     (err, results) => {
-    // //         console.log('ENTROU NA QUERY DE INSERIR TELEFONE\n')
-    // //         if (err) {
-    // //             console.log('Erro:: \n', err);
-    // //             console.log('\n\n\n');
-    // //         }
-    // //         console.log(results)
-    // //         setInsertedId(results)
-    // //     }
-    // // );
+    const email_already_exists = await findEmail(user_info.email);
 
-    // const last_phone_id = "SELECT id FROM telefone ORDER BY id DESC LIMIT 1;"
+    if (email_already_exists[0]) {
+        console.log('\n\n\n EMAIL JÁ EXISTE')
+        return res.status(200).send({
+            status: false,
+            msg: 'E-mail já cadastrado!'
+        });
+    } else {
+        console.log('\n\n\n EMAIL NÃO EXISTE')
+    }
 
-    // console.log('last_phone_id:: ', last_phone_id);
 
-    
+    const full_phone = user_info.phone;
+    const areaCode = full_phone.substring(1, 3);
+    let phone = full_phone.substring(4);
+    phone = phone.replace('-', '');
 
-    // db.query(last_phone_id,
-    //     (err, results) => {
-    //         console.log('ENTROU NA QUERY DE RECUPERAR ID DO TELEFONE\n')
-    //         if (err) {
-    //             console.log('Erro:: \n', err);
-    //             console.log('\n\n\n');
-    //         } else {
-    //             console.log('RESULTADO DA QUERY::')
-    //             console.log(results)
-    //         }
-    //     }
-    // );
+    console.log('areaCode::: ', areaCode);
+    console.log('phone::: ', phone);
 
-    res.status(200).send('POST - Dados da página de registro.');
+    const phone_info = [areaCode, phone];
+    console.log('phone_info::: ', phone_info);
+
+
+    /**
+     * Chamada para criação de inserção de celular
+     */
+    const insert_phone  = await insertNewPhone(phone_info);
+
+
+    /**
+     * Chamada para recuperação do último id do celular
+     */
+    const last_phone_id  = await lastPhoneId(phone_info);
+
+    // Aqui fica guardado o último id inserido na tabela de telefone
+    // console.log('last_phone_id[0].id:: ', last_phone_id[0].id);
+
+
+    const user_data = [last_phone_id[0].id, user_info.name, user_info.last_name, user_info.email, user_info.password];
+
+    /**
+     * Chamada para inserção de usuário
+     */
+    const insert_user  = await insertNewUser(user_data);
+
+    console.log('insert_user::', insert_user);
+
+
+    return res.status(200).send({
+        status: true,
+        msg: 'Usuário cadastrado com sucesso!'
+    });
 });
 
 module.exports = router;
 
-
-const setInsertedId = (new_id) => {
-    console.log('setInsertedId');
-    
-    if (new_id) {
-        console.log('IF');
-        inserted_phone_id = new_id;
-        console.log({inserted_phone_id});
-    } else {
-        console.log('ELSE');
-        console.log({inserted_phone_id});
-        return inserted_phone_id;
-    }
-}
 
 /*
     Dá pra simplesmente salvar o usuário com qualquer id de telefone 'x' por exemplo e só depois fazer um update 

@@ -1,8 +1,33 @@
-.div-form {
+#div-bit {
+  text-align: center;
+  align-items: center;
+  align-content: center;
+}
+
+#btn {
+  border: none;
+  display: block;
+  background-color: #3ca9e2;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  font-size: 18px;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  width: 30%;
+  padding: 20px;
+}
+
+/* .div-form {
   background-color: white;
   max-width: 50%;
-  /* align-items: center; */
-  /* text-align: center; */
   margin: auto;
   margin-top: 5%;
 }
@@ -109,4 +134,4 @@ input[type="email"]:focus {
   background-color: #329dd5;
   -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
-}
+} */

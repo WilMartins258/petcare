@@ -67,15 +67,21 @@ function Register() {
         console.log({register});
 
         if (register.status === 200){
+          setResposta(register.data.msg);
           console.log('deu certo?');
-          // console.log('');
         } else {
-          console.log('Deu errado?')
+          console.log('Algo deu errado')
         }
 
-        // console.log({register});
+        // if (register.data.status) {
+        //   setResposta('Usuário cadastrado com sucesso!');
+        // } else {
+        //   setResposta(register.data.msg);
+        // }
+
+        
+
         // console.log('\n\n\n\n');
-        setResposta('');
       }
       exibeResposta();
     };
@@ -113,33 +119,40 @@ function Register() {
                 placeholder="Celular"
               />
               <input 
-                type='password'
+                // type='password'
+                type='text'
                 name='input_password'
                 id='input_password'
                 onChange={ocultaResposta}
                 placeholder='Senha'
               />
               <input 
-                type='password'
+                // type='password'
+                type='text'
                 name='input_password_confirm'
                 id='input_password_confirm'
                 onChange={ocultaResposta}
                 placeholder='Confirme sua senha'
               />
-              <p id="resposta"
-                style={{
-                  display: 'none',
-                  textAlign: 'auto',
-                  textAlignLast: 'center',
-                  // marginLeft: '35%',
-                  fontSize: '15px',
-                  color: 'red'
-                }}> 
-                {resposta}
-              </p>
+                <p id="resposta"
+                  style={{
+                    display: 'none',
+                    // textAlign: 'auto',
+                    // textAlignLast: 'center',
+                    // marginLeft: '35%',
+                    fontSize: '15px',
+                    color: 'red'
+                  }}>
+                  {resposta}
+                </p>
               <button 
                 className='btn_register'
                 onClick={(e) => handleRegister(e)}>Cadastrar-se</button>
+              <p id='forgot_password'>
+                <a href="#">
+                  Esqueci minha senha
+                </a>
+              </p>
             </form>
           </header>
         </div>

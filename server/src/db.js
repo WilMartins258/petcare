@@ -1,25 +1,18 @@
-const mysql = require('mysql2');
-
 /**
- * Criando conexão com o banco de dados MySQL
- * Neste caso utilizando as configurações do mysql local que criei e a base de teste
+ * Esse arquivo tem o único intuito de estabelexer uma coneção com o banco de dados e disponibilizá-la para todo o projeto
+ * @returns connection -> Retornar uma instância de conexão com o banco de dados
  */
-const connection = mysql.createPool({
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: '123456',
-    database: 'petcare_homo'
-});
+async function connect(){
+    if(global.connection && global.connection.state !== 'disconnected')
+        return global.connection;
 
-module.exports = connection;
+    const mysql = require("mysql2/promise");
+    const connection = await mysql.createConnection("mysql://root:123456@localhost:3306/petcare_homo");
+    console.log("Conectou no MySQL!");
+    global.connection = connection;
+    return connection;
+}
 
-// const query = (sql, callBack) => {
-//     return connection.query(sql, callBack);
-// };
+module.exports = connect();
 
-
-// module.exports = {
-//     connection,
-//     query
-// };
+//  mysql://usuario:senha@servidor:porta/banco

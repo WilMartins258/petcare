@@ -48,7 +48,7 @@ function Login() {
         
         if (login.status === 200){
           setResposta(login.data.msg);
-          console.log({login})
+          console.log({login: login.data})
         } else {
           setResposta('E-mail ou senha incorretos');
           console.log('E-mail ou senha incorretos');

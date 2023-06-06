@@ -64,7 +64,7 @@ function Register() {
         
         const register = await api.post("/register", user_register_info);
         
-        console.log({register});
+        console.log({register: register.data});
 
         if (register.status === 200){
           setResposta(register.data.msg);

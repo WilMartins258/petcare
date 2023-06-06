@@ -15,7 +15,7 @@ const userLogin = async (user_email) => {
     const connection = await db;
     // console.log('user_emailuser_email: ', user_email);
 
-    const login_query = "SELECT nome, email, senha, sexo FROM usuario WHERE email = ?";
+    const login_query = "SELECT id, nome, email, senha, sexo FROM usuario WHERE email = ?";
 
     const [login_data] = await connection.query(login_query, user_email);
 
@@ -48,6 +48,7 @@ router.post('/', async (req, res) => {
             
             return res.status(200).send({
                 login: true,
+                userId: loginResult[0].id,
                 msg: `Bem-vindo(a), ${loginResult[0].nome}!`
             });
             

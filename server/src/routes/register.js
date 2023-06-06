@@ -66,6 +66,18 @@ const insertNewUser = async (user_info) => {
     return rows;
 }
 
+/**
+ * Recupera o último ID inserido na tabela telefone
+ * @returns
+ */
+const lastUserId = async () => {
+    const connection = await db;
+
+    const phone_id_query = "SELECT id FROM usuario ORDER BY id DESC LIMIT 1;";
+    const [rows] = await connection.query(phone_id_query);
+
+    return rows;
+}
 
 router.post('/', async (req, res) => {
     console.log('POST /register');
@@ -123,10 +135,14 @@ router.post('/', async (req, res) => {
     const insert_user  = await insertNewUser(user_data);
 
     console.log('insert_user::', insert_user);
-
+    
+    const last_user_id  = await lastUserId(phone_info);
+    
+    console.log('last_user_id::', last_user_id[0]);
 
     return res.status(200).send({
         status: true,
+        userId: last_user_id[0].id,
         msg: 'Usuário cadastrado com sucesso!'
     });
 });

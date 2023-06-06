@@ -1,6 +1,7 @@
 import './reset.css';
 import './App.css';
 import Login from './pages/login/Login';
+import LoginCerto from './pages/login-certo/Login.js';
 import Register from './pages/register/Register';
 
 import { useState } from "react";
@@ -32,6 +33,17 @@ function App() {
 
   return (
     <div className="App">
+      <LoginCerto></LoginCerto>
+    </div>
+  );
+}
+
+export default App;
+
+
+/*
+return (
+    <div className="App">
       {retornaPagina()},
       <div id='div_btn'>
         <button id='btn' onClick={alternar}>
@@ -40,6 +52,6 @@ function App() {
       </div>
     </div>
   );
-}
 
-export default App;
+
+*/
